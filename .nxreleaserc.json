@@ -1,0 +1,27 @@
+{
+    "repositoryUrl": "ssh://git@gitlab.jojoxd.nl/jojoxd-npm/barrels.git",
+
+    "github": false,
+
+    "npm": true,
+
+    "changelog": true,
+    "changelogFile": "${PROJECT_DIR}/CHANGELOG.md",
+
+    "tagFormat": "release/${PROJECT_NAME}/v${version}",
+
+    "gitAssets": [
+        "${PROJECT_DIR}/package.json",
+        "${PROJECT_DIR}/CHANGELOG.md"
+    ],
+
+    "plugins": [
+        ["@semantic-release/gitlab", {
+            "title": "${PROJECT_NAME} ${nextRelease.version}",
+            "assets": [{
+                "path": "tarball.tgz",
+                "label": "${}-v${nextRelease.version}.tgz"
+            }]
+        }]
+    ]
+}

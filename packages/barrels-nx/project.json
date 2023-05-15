@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nx/js:swc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/packages/barrels-nx",
         "main": "packages/barrels-nx/src/index.ts",
@@ -36,13 +38,11 @@
         ]
       }
     },
-    "publish": {
-      "command": "node tools/scripts/publish.mjs barrels-nx {args.ver} {args.tag}",
-      "dependsOn": ["build"]
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "packages/barrels-nx/**/*.ts",
@@ -54,7 +54,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "packages/barrels-nx/jest.config.ts",
         "passWithNoTests": true
@@ -64,6 +66,16 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "semantic-release": {
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "buildTarget": "barrels-nx:build",
+        "github": false,
+        "changelog": true,
+        "npm": true,
+        "tagFormat": "barrels-nx-v${VERSION}"
       }
     }
   },
