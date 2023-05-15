@@ -1,6 +1,8 @@
 {
     "repositoryUrl": "ssh://git@gitlab.jojoxd.nl/jojoxd-npm/barrels.git",
 
+    "branches": ["main", { "name": "next", "prerelease": true }],
+
     "github": false,
 
     "npm": true,

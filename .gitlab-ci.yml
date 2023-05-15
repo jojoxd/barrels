@@ -1,0 +1,112 @@
+stages:
+  - build
+  - review
+  - test
+  - coverage
+  - publish
+
+include:
+  - project: tools/reviewdog
+    ref: main
+    file: /templates/eslint.yml
+
+before_script:
+  - yarn install --immutable
+
+.node-image: &node-image node:19-alpine
+
+.parallel-all-projects: &projects-matrix
+  matrix:
+    - PROJECT:
+        - barrels
+        - barrels-nx
+
+cache: &global-cache
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .yarn/cache
+
+build:
+  image: *node-image
+  stage: build
+
+  script:
+    - yarn nx run-many --target build --all -c production
+
+  cache:
+    <<: *global-cache
+    policy: pull-push
+
+  artifacts:
+    paths:
+      - dist/
+      - node_modules/
+
+reviewdog:eslint:
+  stage: review
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+  parallel: *projects-matrix
+
+  variables:
+    COMMAND: yarn nx lint ${PROJECT} --format=rdjson --output-file=tmp/${PROJECT}.rdjson
+    RD_OUTPUT_FILE: 'tmp/${PROJECT}.rdjson'
+
+test:
+  image: *node-image
+  stage: test
+
+  script:
+    - yarn nx run-many --target=test --all --coverage=false
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+coverage:
+  image: *node-image
+  stage: coverage
+
+  parallel: *projects-matrix
+
+  script:
+    - yarn nx test ${PROJECT} --coverage --coverage-reporters=text,cobertura
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/package/${PROJECT}/cobertura-coverage.xml
+
+semantic-release:
+  image: *node-image
+  stage: publish
+
+  parallel: *projects-matrix
+
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "next"
+      when: always
+    - when: never
+
+  script:
+    - yarn nx semantic-release ${PROJECT} -c production
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+  needs:
+    - job: build
+      artifacts: true
