@@ -1,0 +1,15 @@
+include:
+  - local: /.gitlab/ci/tasks.yaml
+
+.on-tag-rules: &on-tag-rules
+  - if: $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+/
+    when: always
+  - when: never
+
+on-tag:build:
+  extends: .build
+  rules: *on-tag-rules
+
+on-tag:release:
+  extends: .release
+  rules: *on-tag-rules

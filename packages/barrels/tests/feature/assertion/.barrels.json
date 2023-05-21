@@ -1,0 +1,7 @@
+{
+  "emitAssertions": true,
+
+  "barrels": [{
+    "directory": "."
+  }]
+}

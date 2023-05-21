@@ -9,12 +9,15 @@
       "outputs": [
         "{options.outputPath}"
       ],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/packages/barrels-nx",
         "main": "packages/barrels-nx/src/index.ts",
         "tsConfig": "packages/barrels-nx/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "peerDependencies",
         "assets": [
           "packages/barrels-nx/*.md",
+          "LICENSE.md",
           {
             "input": "./packages/barrels-nx/src",
             "glob": "**/!(*.ts)",
@@ -68,14 +71,20 @@
         }
       }
     },
-    "semantic-release": {
-      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "buildTarget": "barrels-nx:build",
-        "github": false,
-        "changelog": true,
-        "npm": true,
-        "tagFormat": "barrels-nx-v${VERSION}"
+        "access": "public",
+        "dryRun": "${dryRun}",
+        "buildTarget": "production"
+      },
+      "configurations": {
+        "next-branch": {
+          "tag": "next"
+        },
+        "main-branch": {
+          "tag": "latest"
+        }
       }
     }
   },

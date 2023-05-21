@@ -1,11 +1,50 @@
-# barrels-nx
+# @jojoxd/barrels-nx
 
-This library was generated with [Nx](https://nx.dev).
+Run [@jojoxd/barrels](https://npmjs.com/package/@jojoxd/barrels) using NX.
 
-## Building
+```shell
+yarn install -D @jojoxd/barrels @jojoxd/barrels-nx
+```
 
-Run `nx build barrels-nx` to build the library.
+## Generators
 
-## Running unit tests
+### @jojoxd/barrels:configuration
 
-Run `nx test barrels-nx` to execute the unit tests via [Jest](https://jestjs.io).
+Configure @jojoxd/barrels for a project, including barrels target
+
+```shell
+nx generate @jojoxd/barrels:configuration <project>
+```
+
+Or use it in your own generator:
+
+```typescript
+// generator.ts
+import { configurationGenerator, ConfigurationGeneratorSchema } from "@jojoxd/barrels-nx";
+import { Schema } from "./schema";
+
+export default async function(tree: Tree, schema: Schema & ConfigurationGeneratorSchema): Promise<void>
+{
+    await configurationGenerator(tree, schema);
+}
+```
+
+## Executors
+
+### @jojoxd/barrels:generate
+
+Execute barrels
+
+```json
+{
+  "targets": {
+    "barrels": {
+      "executor": "@jojoxd/barrels:generate",
+      
+      "options": {
+        "TODO": "Options reference"
+      }
+    }
+  }
+}
+```

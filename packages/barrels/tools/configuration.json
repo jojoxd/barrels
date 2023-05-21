@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://jojoxd.nl/schema/barrels/{version}/configuration",
+    "oneOf": [
+        {
+            "$ref": "./configuration-base.json"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "configurations": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "./configuration-base.json"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "configurations"
+            ]
+        }
+    ]
+}

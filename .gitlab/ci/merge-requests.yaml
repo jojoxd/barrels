@@ -1,0 +1,23 @@
+include:
+  - local: /.gitlab/ci/tasks.yaml
+
+.mr-rules: &mr-rules
+  - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    when: always
+  - when: never
+
+mr:build:
+  extends: .build
+  rules: *mr-rules
+
+mr:review:
+  extends: .review
+  rules: *mr-rules
+
+mr:test:
+  extends: .test
+  rules: *mr-rules
+
+mr:coverage:
+  extends: .coverage
+  rules: *mr-rules
