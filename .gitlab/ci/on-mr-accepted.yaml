@@ -6,6 +6,11 @@ include:
     when: always
   - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
     when: always
+
+  # @DEBUG
+  - if: $CI_COMMIT_BRANCH == "next" && $CI_PIPELINE_SOURCE == "push"
+    when: always
+
   - when: never
 
 mr-accepted:build:
