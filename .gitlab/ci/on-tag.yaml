@@ -13,3 +13,7 @@ on-tag:build:
 on-tag:release:
   extends: .release
   rules: *on-tag-rules
+
+  needs:
+    - job: on-tag:build
+      artifacts: true

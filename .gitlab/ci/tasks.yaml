@@ -121,10 +121,6 @@ cache: &global-cache
   image: *node-image
   stage: release
 
-  needs:
-    - job: build
-      artifacts: true
-
   before_script:
     - *yarn-install
     - wget -O /usr/local/bin/release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
