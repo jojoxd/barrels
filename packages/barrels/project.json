@@ -9,14 +9,23 @@
       "outputs": [
         "{options.outputPath}"
       ],
+      "dependsOn": ["generate-schema"],
       "options": {
         "outputPath": "dist/packages/barrels",
         "tsConfig": "packages/barrels/tsconfig.lib.json",
         "packageJson": "packages/barrels/package.json",
         "main": "packages/barrels/src/index.ts",
         "assets": [
-          "packages/barrels/*.md"
+          "packages/barrels/*.md",
+          "LICENSE.md",
+          "packages/barrels/*.schema.json"
         ]
+      },
+      "configurations": {
+        "types": {
+          "outputPath": "dist/types/packages/barrels",
+          "tsConfig": "packages/barrels/tsconfig.types.json"
+        }
       }
     },
     "lint": {
@@ -27,6 +36,29 @@
       "options": {
         "lintFilePatterns": [
           "packages/barrels/**/*.ts"
+        ]
+      }
+    },
+    "build-types": {
+      "executor": "@nx/js:swc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/types/packages/barrels",
+        "tsConfig": "packages/barrels/tsconfig.types.json",
+        "packageJson": "packages/barrels/package.json",
+        "main": "packages/barrels/src/index.ts"
+      }
+    },
+    "generate-schema": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build-types"],
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/api-extractor/barrels",
+        "commands": [
+          "ts-node --project packages/barrels/tsconfig.tools.json packages/barrels/tools/generate-schema.ts"
         ]
       }
     },
@@ -46,10 +78,20 @@
         }
       }
     },
-    "semantic-release": {
-      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "buildTarget": "barrels:build"
+        "access": "public",
+        "dryRun": "${dryRun}",
+        "buildTarget": "production"
+      },
+      "configurations": {
+        "next-branch": {
+          "tag": "next"
+        },
+        "main-branch": {
+          "tag": "latest"
+        }
       }
     }
   },

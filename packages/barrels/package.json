@@ -1,4 +1,27 @@
 {
   "name": "@jojoxd/barrels",
-  "version": "0.0.1"
+  "description": "Generate barrels",
+  "version": "0.1.4",
+  "author": "Joey Vos <contact@jojoxd.nl> (https://jojoxd.nl)",
+  "type": "module",
+  "keywords": [
+    "barrels"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "homepage": "https://gitlab.jojoxd.nl/jojoxd-npm/barrels",
+  "bugs": {
+    "url": "https://github.com/jojoxd/barrels/issues"
+  },
+  "repository": {
+    "url": "https://gitlab.jojoxd.nl/jojoxd-npm/barrels.git",
+    "type": "git",
+    "directory": "packages/barrels"
+  }
 }

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+
+  "extends": "../../api-extractor.base.jsonc",
+
+  "projectFolder": ".",
+
+  "mainEntryPointFilePath": "../../dist/types/packages/<unscopedPackageName>/src/index.d.ts",
+
+  "docModel": {
+    "projectFolderUrl": "https://gitlab.jojoxd.nl/jojoxd-npm/barrels/-/tree/main/packages/barrels"
+  }
+}

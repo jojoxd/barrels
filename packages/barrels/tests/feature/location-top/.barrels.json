@@ -1,0 +1,7 @@
+{
+  "location": "top",
+
+  "barrels": [{
+    "directory": "."
+  }]
+}

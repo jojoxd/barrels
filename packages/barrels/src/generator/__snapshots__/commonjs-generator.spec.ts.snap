@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generation Should generate assertions when enabled 1`] = `"TODO"`;
+
+exports[`Generation Should not generate assertions when disabled 1`] = `"TODO"`;

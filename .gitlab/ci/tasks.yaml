@@ -1,0 +1,132 @@
+include:
+  - project: tools/reviewdog
+    ref: main
+    file: /templates/extendable/eslint.yml
+
+stages:
+  - build
+  - review
+  - test
+  - coverage
+  - version
+  - release
+
+before_script:
+  - yarn install --immutable
+
+.projects-matrix: &projects-matrix
+  matrix:
+    - PROJECT:
+        - barrels
+        - barrels-nx
+
+.node-image: &node-image node:19-alpine
+
+cache: &global-cache
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .yarn/cache
+
+.build:
+  image: *node-image
+  stage: build
+
+  script:
+    - yarn nx run-many --target build --all --exclude=workspace -c production
+
+  cache:
+    <<: *global-cache
+    policy: pull-push
+
+  artifacts:
+    paths:
+      - dist/
+      - node_modules/
+
+.review:
+  stage: review
+  extends: .reviewdog-eslint
+
+  allow_failure: true
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+  parallel: *projects-matrix
+
+  variables:
+    COMMAND: yarn nx lint ${PROJECT} --format=rdjson --output-file=tmp/${PROJECT}.rdjson
+    RD_OUTPUT_FILE: 'tmp/${PROJECT}.rdjson'
+
+.test:
+  image: *node-image
+  stage: test
+
+  script:
+    - yarn nx run-many --target=test --all --exclude=workspace --coverage=false
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+  artifacts:
+    when: always
+
+    paths:
+      - 'tmp/junit/junit.*.xml'
+
+    reports:
+      junit: 'tmp/junit/junit.*.xml'
+
+.coverage:
+  image: *node-image
+  stage: coverage
+
+  parallel: *projects-matrix
+
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+
+  script:
+    - yarn nx test ${PROJECT} --coverage --coverage-reporters=text,cobertura
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+  artifacts:
+    paths:
+      - coverage/packages/${PROJECT}/cobertura-coverage.xml
+
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/packages/${PROJECT}/cobertura-coverage.xml
+
+.version:
+  image: *node-image
+  stage: version
+
+  parallel: *projects-matrix
+
+  # @TODO: Remove release-as and pre-id when we're stable enough
+  script:
+    - yarn nx workspace:version -c ${CI_COMMIT_BRANCH}-branch --release-as=prerelease --preid=alpha
+
+  cache:
+    <<: *global-cache
+    policy: pull
+
+.release:
+  image: *node-image
+  stage: release
+
+  script:
+    - yarn nx workspace:deploy-gitlab --tag ${CI_COMMIT_TAG} -c production
+    - yarn nx run-many --target=release -c ${CI_COMMIT_BRANCH}-branch
+
+  cache:
+    <<: *global-cache
+    policy: pull
