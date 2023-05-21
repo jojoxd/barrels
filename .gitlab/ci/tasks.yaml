@@ -109,11 +109,10 @@ cache: &global-cache
   image: *node-image
   stage: version
 
-  parallel: *projects-matrix
-
   # @TODO: Remove release-as and pre-id when we're stable enough
   script:
-    - yarn nx workspace:version -c ${CI_COMMIT_BRANCH}-branch --release-as=prerelease --preid=alpha
+    - echo "${CI_COMMIT_BRANCH}"
+    - yarn nx run workspace:version -c "${CI_COMMIT_BRANCH}-branch" --release-as=prerelease --preid=alpha
 
   cache:
     <<: *global-cache
@@ -124,7 +123,7 @@ cache: &global-cache
   stage: release
 
   script:
-    - yarn nx workspace:deploy-gitlab --tag ${CI_COMMIT_TAG} -c production
+    - yarn nx run workspace:deploy-gitlab --tag ${CI_COMMIT_TAG} -c production
     - yarn nx run-many --target=release -c ${CI_COMMIT_BRANCH}-branch
 
   cache:
