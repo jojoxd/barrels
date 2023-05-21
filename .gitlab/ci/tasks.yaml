@@ -12,7 +12,7 @@ stages:
   - release
 
 before_script:
-  - yarn install --immutable
+  - &yarn-install yarn install --immutable
 
 .projects-matrix: &projects-matrix
   matrix:
@@ -43,7 +43,6 @@ cache: &global-cache
   artifacts:
     paths:
       - dist/
-      - node_modules/
 
 .review:
   stage: review
@@ -121,6 +120,15 @@ cache: &global-cache
 .release:
   image: *node-image
   stage: release
+
+  needs:
+    - job: build
+      artifacts: true
+
+  before_script:
+    - *yarn-install
+    - wget -O /usr/local/bin/release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
+    - chmod +x /usr/local/bin/release-cli
 
   script:
     - yarn nx run workspace:deploy-gitlab --tag ${CI_COMMIT_TAG} -c production
