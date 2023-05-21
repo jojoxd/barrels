@@ -51,6 +51,13 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 
 * users can create barrels ([4dd7234](https://gitlab.jojoxd.nl/jojoxd-npm/barrels/commit/4dd72343a7c1693b0c7b454ea4d5fec6f319e8b9))
 
+## 0.0.1-alpha.0 (2023-05-21)
+
+
+### Features
+
+* users can create barrels ([4dd7234](https://gitlab.jojoxd.nl/jojoxd-npm/barrels/commit/4dd72343a7c1693b0c7b454ea4d5fec6f319e8b9))
+
 ## [0.1.4](https://gitlab.jojoxd.nl/jojoxd-npm/barrels/compare/v0.1.3...v0.1.4) (2023-05-21)
 
 ## [0.1.3](https://gitlab.jojoxd.nl/jojoxd-npm/barrels/compare/v0.1.2...v0.1.3) (2023-05-21)
