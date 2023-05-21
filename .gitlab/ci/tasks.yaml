@@ -108,6 +108,11 @@ cache: &global-cache
   image: *node-image
   stage: version
 
+  # @NOTE: 'Stealing' semantic-release token here
+  before_script:
+    - *yarn-install
+    - git remote set-url origin https://gitlab-ci-token:${GL_TOKEN}@gitlab.com/org/project.git
+
   # @TODO: Remove release-as and pre-id when we're stable enough
   script:
     - echo "${CI_COMMIT_BRANCH}"
