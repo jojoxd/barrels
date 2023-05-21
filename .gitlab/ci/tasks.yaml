@@ -137,7 +137,7 @@ cache: &global-cache
     - chmod +x /usr/local/bin/release-cli
 
   script:
-    - export CI_SOURCE_BRANCH=$(git for-each-ref | grep "${$CI_COMMIT_SHORT_SHA}" | grep "origin" | sed "s/.*\///")
+    - export CI_SOURCE_BRANCH=$(git for-each-ref | grep "${CI_COMMIT_SHORT_SHA}" | grep "origin" | sed "s/.*\///")
     - yarn nx run workspace:deploy-gitlab --tag ${CI_COMMIT_TAG} -c production
     - yarn nx run-many --target=deploy -c ${CI_SOURCE_BRANCH}-branch
 
