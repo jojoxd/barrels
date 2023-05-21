@@ -135,6 +135,7 @@ cache: &global-cache
     - apk add git
     - wget -O /usr/local/bin/release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
     - chmod +x /usr/local/bin/release-cli
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ${CI_PROJECT_DIR}/.npmrc
 
   script:
     - export CI_SOURCE_BRANCH=$(git for-each-ref | grep "${CI_COMMIT_SHORT_SHA}" | grep "origin" | sed "s/.*\///")
