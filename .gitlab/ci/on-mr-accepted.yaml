@@ -2,9 +2,9 @@ include:
   - local: /.gitlab/ci/tasks.yaml
 
 .mr-accepted-rules: &mr-accepted-rules
-  - if: $CI_COMMIT_BRANCH == "next" && $CI_PIPELINE_SOURCE = "merge_request_event"
+  - if: $CI_COMMIT_BRANCH == "next" && $CI_PIPELINE_SOURCE == "merge_request_event"
     when: always
-  - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE = "merge_request_event"
+  - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
     when: always
   - when: never
 

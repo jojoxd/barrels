@@ -137,9 +137,9 @@ cache: &global-cache
     - chmod +x /usr/local/bin/release-cli
 
   script:
-    - BRANCH=$(git branch -a --contains tags/$CI_COMMIT_TAG | grep origin | sed 's/.*origin\///')
+    - CI_SOURCE_BRANCH=$(git for-each-ref | grep $(git show-ref --dereference $CI_COMMIT_TAG -s --abbrev=7 --tags) | grep origin | grep -v $CI_COMMIT_TAG | sed "s/.*\///")
     - yarn nx run workspace:deploy-gitlab --tag ${CI_COMMIT_TAG} -c production
-    - yarn nx run-many --target=deploy -c ${BRANCH}-branch
+    - yarn nx run-many --target=deploy -c ${CI_SOURCE_BRANCH}-branch
 
   cache:
     <<: *global-cache
