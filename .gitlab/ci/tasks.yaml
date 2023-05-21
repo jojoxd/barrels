@@ -111,6 +111,7 @@ cache: &global-cache
   # @NOTE: 'Stealing' semantic-release token here
   before_script:
     - *yarn-install
+    - apk add git
     - git remote set-url origin https://gitlab-ci-token:${GL_TOKEN}@gitlab.jojoxd.nl/jojoxd-npm/barrels.git
 
   # @TODO: Remove release-as and pre-id when we're stable enough
