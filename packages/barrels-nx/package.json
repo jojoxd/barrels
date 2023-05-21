@@ -1,7 +1,7 @@
 {
   "name": "@jojoxd/barrels-nx",
   "description": "Barrels NX Plugin",
-  "version": "0.1.4",
+  "version": "0.0.1-alpha.0",
   "author": "Joey Vos <contact@jojoxd.nl> (https://jojoxd.nl)",
   "keywords": [
     "nx-plugin",
