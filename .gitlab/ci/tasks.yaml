@@ -113,7 +113,7 @@ cache: &global-cache
     - apk add git
     - git config --global user.name "Release (bot)"
     - git config --global user.email "gitlab-release-bot@jojoxd.nl"
-    - git remote set-url origin https://gitlab-ci-token:${RELEASE_TOKEN}@gitlab.jojoxd.nl/jojoxd-npm/barrels.git
+    - git remote add gitlab https://gitlab-ci-token:${RELEASE_TOKEN}@gitlab.jojoxd.nl/jojoxd-npm/barrels.git
     - git fetch
 
   # @TODO: Remove release-as and pre-id when we're stable enough

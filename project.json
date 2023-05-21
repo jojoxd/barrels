@@ -29,14 +29,15 @@
         "syncVersions": true,
         "allowEmptyRelease": true,
         "trackDeps": true,
-        "push": true
+        "push": true,
+        "remote": "gitlab"
       },
       "configurations": {
         "main-branch": {
-          "baseBranch": "main"
+          "baseBranch": "HEAD:main"
         },
         "next-branch": {
-          "baseBranch": "next"
+          "baseBranch": "HEAD:next"
         }
       }
     },
