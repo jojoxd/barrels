@@ -1,10 +1,11 @@
 {
   "jsc": {
-    "target": "es2017",
+    "target": "es2022",
     "parser": {
       "syntax": "typescript",
       "decorators": true,
-      "dynamicImport": true
+      "dynamicImport": true,
+      "importAssertions": true
     },
     "transform": {
       "decoratorMetadata": true,
@@ -12,12 +13,13 @@
     },
     "keepClassNames": true,
     "externalHelpers": true,
-    "loose": true
+    "loose": false
   },
+  "isModule": true,
   "module": {
-    "type": "commonjs",
-    "strict": true,
-    "noInterop": true
+    "type": "es6",
+    "strict": false,
+    "noInterop": false
   },
   "sourceMaps": true,
   "exclude": [

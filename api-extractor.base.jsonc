@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+
+  "mainEntryPointFilePath": "dist/packages/<unscopedPackageName>/src/index.d.ts",
+  "bundledPackages": [],
+  "newlineKind": "lf",
+
+  // @NOTE: Should be set in package's api-extractor config
+  // "projectFolder": ".",
+
+  "compiler": {
+    "tsconfigFilePath": "<projectFolder>/tsconfig.json",
+  },
+
+  "apiReport": {
+    "enabled": true,
+    "reportFileName": "<unscopedPackageName>.api.md",
+    "reportFolder": "dist/api-extractor/<unscopedPackageName>/",
+    "reportTempFolder": "tmp/api-extractor/<unscopedPackageName>/",
+    "includeForgottenExports": false
+  },
+
+  "docModel": {
+    "enabled": true,
+    "apiJsonFilePath": "dist/api-extractor/<unscopedPackageName>/api.json",
+    "includeForgottenExports": false,
+
+    // @NOTE: Should be set in package's api-extractor config
+    // "projectFolderUrl": "http://github.com/path/to/your/projectFolder"
+  },
+
+  "dtsRollup": {
+    "enabled": false
+  },
+
+  "tsdocMetadata": {
+    "enabled": true,
+
+    // @TODO: Check if this needs to be published in package
+    "tsdocMetadataFilePath": "dist/api-extractor/<unscopedPackageName>/tsdoc-metadata.json"
+  },
+
+  "messages": {
+    "compilerMessageReporting": {
+      "default": {
+        "logLevel": "warning"
+      }
+    },
+
+    "extractorMessageReporting": {
+      "default": {
+        "logLevel": "warning",
+      }
+    },
+
+    "tsdocMessageReporting": {
+      "default": {
+        "logLevel": "warning"
+      }
+    }
+  }
+}

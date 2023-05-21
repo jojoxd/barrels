@@ -1,0 +1,113 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://jojoxd.nl/schema/barrels/{version}/configuration-base.json",
+    "title": "@jojoxd/barrels Base Schema",
+    "type": "object",
+    "properties": {
+        "barrels": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/barrel-configuration"
+            }
+        },
+        "cwd": {
+            "type": "string"
+        },
+        "dryRun": {
+            "type": "boolean"
+        },
+        "location": {
+            "$ref": "#/$defs/location"
+        },
+        "target": {
+            "$ref": "#/$defs/target"
+        },
+        "emitAssertions": {
+            "type": "boolean"
+        },
+        "emitExtensions": {
+            "type": "boolean"
+        },
+        "exclude": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/match"
+            }
+        },
+        "extensions": {
+            "type": "string"
+        },
+        "header": {
+            "type": "string"
+        },
+        "include": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/match"
+            }
+        }
+    },
+    "required": [
+        "barrels"
+    ],
+    "$defs": {
+        "barrel-configuration": {
+            "type": "object",
+            "$id": "barrel-options",
+            "properties": {
+                "directory": {
+                    "$ref": "#/$defs/match"
+                },
+                "emitAssertions": {
+                    "type": "boolean"
+                },
+                "emitExtensions": {
+                    "type": "boolean"
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/match"
+                    }
+                },
+                "extensions": {
+                    "type": "string"
+                },
+                "header": {
+                    "type": "string"
+                },
+                "include": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/match"
+                    }
+                }
+            },
+            "required": [
+                "directory"
+            ]
+        },
+        "location": {
+            "type": "string",
+            "enum": [
+                "top",
+                "branch",
+                "all"
+            ],
+            "default": "top"
+        },
+        "target": {
+            "type": "string",
+            "enum": [
+                "ts",
+                "dts",
+                "cjs",
+                "esm"
+            ],
+            "default": "esm"
+        },
+        "match": {
+            "type": "string"
+        }
+    }
+}

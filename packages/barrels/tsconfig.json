@@ -1,16 +1,40 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs"
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+
+    "lib": [
+      "ESNext"
+    ],
+    "types": [
+      "node"
+    ]
   },
   "files": [],
-  "include": [],
+  "include": [
+    "./bin/**/*.ts",
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "./bin/**/*.spec.ts",
+    "./src/**/*.spec.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.tools.json"
+    },
+    {
+      "path": "./tsconfig.types.json"
     }
   ]
 }
