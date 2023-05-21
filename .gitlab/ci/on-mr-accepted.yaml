@@ -1,0 +1,21 @@
+include:
+  - local: /.gitlab/ci/tasks.yaml
+
+.mr-accepted-rules: &mr-accepted-rules
+  - if: $CI_COMMIT_BRANCH == "next"
+    when: always
+  - if: $CI_COMMIT_BRANCH == "main"
+    when: always
+  - when: never
+
+mr-accepted:build:
+  extends: .build
+  rules: *mr-accepted-rules
+
+mr-accepted:test:
+  extends: .test
+  rules: *mr-accepted-rules
+
+mr-accepted:version:
+  extends: .version
+  rules: *mr-accepted-rules

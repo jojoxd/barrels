@@ -3,7 +3,30 @@
   "version": 2,
   "title": "Generate executor",
   "description": "",
-  "type": "object",
-  "properties": {},
+
+  "oneOf": [
+    {
+      "$comment1": "// @TODO: Figure out how deep back we need to go for this, when normally deployed",
+      "$comment2": "// Maybe we can point to https://jojoxd.nl/schema/barrels/{version}/configuration-base.json instead?",
+
+      "$ref": "../../@jojoxd/barrels/configuration-base.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "configurationFile": {
+          "type": "string"
+        }
+      },
+      "required": ["configurationFile"]
+    }],
+
+  "properties": {
+    "watch": {
+      "description": "TODO",
+      "type": "boolean",
+      "default": false
+    }
+  },
   "required": []
 }

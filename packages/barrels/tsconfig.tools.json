@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.json",
+
+    "include": [
+        "tools/**/*.ts"
+    ],
+
+    "ts-node": {
+        "esm": true
+    }
+}

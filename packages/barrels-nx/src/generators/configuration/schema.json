@@ -6,12 +6,26 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "",
+      "aliases": ["project", "projectName"],
+      "description": "Project for which to generate Barrels configuration.",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "For which project do you want to generate Barrels configuration?",
+      "x-dropdown": "projects",
+      "x-priority": "important"
+    },
+    "inlineConfig": {
+      "description": "Add configuration in project.json instead of .barrels.json",
+      "type": "boolean",
+      "default": false
+    },
+    "skipFormat": {
+      "description": "Skip formatting files.",
+      "type": "boolean",
+      "default": false,
+      "x-priority": "internal"
     }
   },
   "required": ["name"]

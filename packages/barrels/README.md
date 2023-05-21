@@ -1,11 +1,31 @@
-# barrels
+# @jojoxd/barrels
 
-This library was generated with [Nx](https://nx.dev).
+Create barrels, using cli, or programmatically.
 
-## Building
+```shell
+yarn install -D @jojoxd/barrels
+```
 
-Run `nx build barrels` to build the library.
+## Usage
 
-## Running unit tests
+```shell
+barrels -c barrels.json
+# OR
+barrels TODO: Add Options here
+```
 
-Run `nx test barrels` to execute the unit tests via [Jest](https://jestjs.io).
+### Programmatic
+
+```typescript
+import { Barrels } from "@jojoxd/barrels";
+
+const barrels = new Barrels();
+
+await barrels.generate({
+    ...options,
+});
+```
+
+## Configuration
+
+config file, or CLI options
